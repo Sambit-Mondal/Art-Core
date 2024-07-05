@@ -1,74 +1,36 @@
+// index.js
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Screens/Home';
 import About from './Screens/About';
 import Artworks from './Screens/Artworks';
 import ContactMe from './Screens/ContactMe';
 import Navbar from './Components/Navbar';
 import LoginPopup from './Components/LoginPopup';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <>
-        <Navbar />
-        <Home />
-      </>
-    )
-  },
-  {
-    path: '/about',
-    element: (
-      <>
-        <Navbar />
-        <About />
-      </>
-    )
-  },
-  {
-    path: '/artworks',
-    element: (
-      <>
-        <Navbar />
-        <Artworks />
-      </>
-    )
-  },
-  {
-    path: '/contact',
-    element: (
-      <>
-        <Navbar />
-        <ContactMe />
-      </>
-    )
-  },
-  {
-    path: '/login',
-    element: (
-      <>
-        <LoginPopup loginVisibility={() => {}} />
-      </>
-    )
-  },
-  {
-    path: '/signup',
-    element: (
-      <>
-        <LoginPopup loginVisibility={() => {}} />
-      </>
-    )
-  }
-])
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './utils/PrivateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <div className='select-none flex flex-col justify-center items-center z-40 absolute top-0 bottom-0 left-0 right-0 bg-opacity-10 bg-black'>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/artworks" element={<PrivateRoute element={<Artworks />} />} />
+          <Route path="/contact" element={<PrivateRoute element={<ContactMe />} />} />
+          <Route path="/login" element={<LoginPopup loginVisibility={() => {}} />} />
+          <Route path="/signup" element={<LoginPopup loginVisibility={() => {}} />} />
+        </Routes>
+      </Router>
+      </div>
+    </AuthProvider>
   </React.StrictMode>
 );
 
