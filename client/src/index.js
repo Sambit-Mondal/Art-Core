@@ -8,33 +8,68 @@ import About from './Screens/About';
 import Artworks from './Screens/Artworks';
 import ContactMe from './Screens/ContactMe';
 import Navbar from './Components/Navbar';
-import Chatbot from './Components/Chatbot';
+import LoginPopup from './Components/LoginPopup';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <><Navbar /><Home /><Chatbot /></>
+    element: (
+      <>
+        <Navbar />
+        <Home />
+      </>
+    )
   },
   {
     path: '/about',
-    element: <><Navbar /><About /><Chatbot /></>
+    element: (
+      <>
+        <Navbar />
+        <About />
+      </>
+    )
   },
   {
     path: '/artworks',
-    element: <><Navbar /><Artworks /><Chatbot /></>
+    element: (
+      <>
+        <Navbar />
+        <Artworks />
+      </>
+    )
   },
   {
     path: '/contact',
-    element: <><Navbar /><ContactMe /><Chatbot /></>
+    element: (
+      <>
+        <Navbar />
+        <ContactMe />
+      </>
+    )
+  },
+  {
+    path: '/login',
+    element: (
+      <>
+        <LoginPopup loginVisibility={() => {}} />
+      </>
+    )
+  },
+  {
+    path: '/signup',
+    element: (
+      <>
+        <LoginPopup loginVisibility={() => {}} />
+      </>
+    )
   }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router = {router} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
 
 reportWebVitals();
