@@ -1,17 +1,20 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useContext } from 'react';
 import google from '../assets/Google.png';
 import facebook from '../assets/Facebook.png';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { auth, signupWithGoogle, googleProvider } from '../firebase/Firebase';
+import { auth, signupWithGoogle, googleProvider, db } from '../firebase/Firebase';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import Signup from './Signup';
 import Login from './Login';
+import { doc, setDoc } from 'firebase/firestore';
 
 function LoginPopup({ loginVisibility }) {
     const [loginVisible, setLoginVisible] = useState(true);
     const [signupVisible, setSignupVisible] = useState(false);
     const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext); // Use the AuthContext to set user
 
     const onClose = useCallback(() => {
         loginVisibility((prev) => (!prev));
@@ -57,7 +60,23 @@ function LoginPopup({ loginVisibility }) {
     const handleGoogleLogin = async (e) => {
         try {
             e.preventDefault();
-            await signupWithGoogle(auth, googleProvider);
+            const res = await signupWithGoogle(auth, googleProvider);
+            const user = res.user;
+
+            // Save user info to Firestore
+            await setDoc(doc(db, 'users', user.uid), {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+            });
+
+            // Set user in context
+            setUser({
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+            });
+
             toast.success("User logged in successfully!", { position: "top-center" });
             navigate('/');
             onClose();
@@ -67,7 +86,7 @@ function LoginPopup({ loginVisibility }) {
     }
 
     return (
-        <div ref={ref} className='flex justify-center bg-navbar w-auto flex-col p-5 pt-3 pb-3 px-7 rounded-sm z-50'>
+        <div ref={ref} className='flex justify-center bg-navbar w-auto flex-col p-5 pt-3 pb-3 px-7 rounded-sm z-50 absolute'>
             <div className='w-full flex items-center justify-end mb-2'>
                 <XMarkIcon className='w-6 h-6 cursor-pointer' onClick={onClose} />
             </div>

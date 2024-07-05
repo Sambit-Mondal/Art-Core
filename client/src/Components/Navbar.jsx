@@ -17,19 +17,19 @@ function Navbar() {
             <div className="flex flex-col items-center justify-center font-semibold gap-7">
 
                 <p className=""><NavLink to='/' className={({isActive}) => {
-                    return isActive ? "bg-activeTab text-white p-2 rounded" : "transition duration-150 ease-in-out hover:text-white"
+                    return isActive ? "bg-activeTab text-white p-2 rounded-sm" : "transition duration-150 ease-in-out hover:text-hoverTabs"
                 }}>HOME</NavLink></p>
 
                 <p className=""><NavLink to='/about' className={({isActive}) => {
-                    return isActive ? "bg-activeTab text-white p-2 rounded" : "transition duration-150 ease-in-out hover:text-white"
+                    return isActive ? "bg-activeTab text-white p-2 rounded-sm" : "transition duration-150 ease-in-out hover:text-hoverTabs"
                 }}>ABOUT</NavLink></p>
 
                 <p><NavLink to='/artworks' className={({isActive}) => {
-                    return isActive ? "bg-activeTab text-white p-2 rounded" : "transition duration-150 ease-in-out hover:text-white"
+                    return isActive ? "bg-activeTab text-white p-2 rounded-sm" : "transition duration-150 ease-in-out hover:text-hoverTabs"
                 }}>ARTWORKS</NavLink></p>
                 
                 <p><NavLink to='/contact' className={({isActive}) => {
-                    return isActive ? "bg-activeTab text-white p-2 rounded" : "transition duration-150 ease-in-out hover:text-white"
+                    return isActive ? "bg-activeTab text-white p-2 rounded-sm" : "transition duration-150 ease-in-out hover:text-hoverTabs"
                 }}>CONTACT ME</NavLink></p>
             </div>
         </div>

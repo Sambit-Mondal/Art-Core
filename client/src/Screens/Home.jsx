@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Chatbot from '../Components/Chatbot'
 import Username from '../Components/Username'
 import Login from '../Components/LoginPopup'
+import Footer from '../Components/Footer';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   const [isLoginVisible, setLoginVisible] = useState(false);
@@ -15,11 +17,22 @@ function Home() {
       <Username loginVisibility={loginVisibility} />
       {isLoginVisible && (
         <>
-        <Login loginVisibility={loginVisibility} />
+          <Login loginVisibility={loginVisibility} />
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
         </>
       )}
+      <div className='flex flex-col items-center justify-center w-full pl-52'>
+        <p className='font-inter text-xl font-semibold'>WELCOME TO</p>
+        <p className='font-carter text-3xl font-bold tracking-wide drop-shadow-text'>ART CORE</p>
+        <p className='font-jim text-2xl font-medium'>"Curating Beauty, one Brushstroke at a Time"</p>
+        <NavLink to='/about'>
+          <button className='flex items-center justify-center p-3 bg-navbar rounded-full drop-shadow-btn shadow-btn font-bold px-5 mt-8 transition duration-150 ease-in-out hover:bg-activeTab hover:text-white'>
+            EXPLORE MORE
+          </button>
+        </NavLink>
+      </div>
       <Chatbot />
+      <Footer />
     </div>
   )
 }

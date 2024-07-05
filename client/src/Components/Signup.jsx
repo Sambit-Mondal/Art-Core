@@ -22,13 +22,9 @@ function Signup({ onSignupSuccess }) {
             const data = await response.json();
 
             if (response.ok) {
-                toast.success(data.message, {
-                    position: 'top-center',
-                    autoClose: 1500
-                });
-                setTimeout(() => {
-                    onSignupSuccess();
-                }, 2000);  // Wait for 2 seconds before executing onSignupSuccess
+                toast.success(data.message, { position: 'top-center' });
+                onSignupSuccess();
+                console.log(data.user);
             } else {
                 toast.error(data.message, { position: 'top-center' });
             }
@@ -49,7 +45,6 @@ function Signup({ onSignupSuccess }) {
                         placeholder='e.g., John Wordsworth'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        required
                     />
                 </div>
                 <div className='flex flex-col gap-2 py-2'>
@@ -61,7 +56,6 @@ function Signup({ onSignupSuccess }) {
                         placeholder='e.g., john@gmail.com'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
                     />
                 </div>
                 <div className='flex flex-col gap-2 py-2'>
@@ -72,7 +66,6 @@ function Signup({ onSignupSuccess }) {
                         placeholder='Enter Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                     />
                 </div>
                 <div>
