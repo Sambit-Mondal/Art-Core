@@ -32,7 +32,7 @@ function About() {
           <div className="overflow-hidden flex items-center justify-center w-[40%] h-full pr-3 mr-16 rounded-full">
             <img src={Arundhati} alt="Arundhati Bera" className='w-48 h-52 flex items-center justify-center rounded-full' />
           </div>
-          <p className='font-inter text-md pr-7'>Hi! I’m <span className='font-bold'>Arundhati Bera</span>, a passionate artist, currently persuing BTech in Computer Science and Engineering at KIIT University, Bhubaneswar.
+          <p className='font-inter text-md pr-7'>Hi! I'm <span className='font-bold'>Arundhati Bera</span>, a passionate artist, currently persuing BTech in Computer Science and Engineering at KIIT University, Bhubaneswar.
             <ul className='list-disc'>
               <li><span className='font-bold'>Mediums:</span> Acrylic, Water, Oil, etc.</li>
               <li>Expertise in Canvas paintings.</li>

@@ -18,7 +18,7 @@ function Username({ loginVisibility }) {
             <div>
                 {user ? (
                     <div className='flex items-center justify-center w-auto fixed right-6 top-6 gap-4'>
-                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm font-semibold gap-2 bg-navbar px-3 py-2 cursor-pointer'>
+                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm font-semibold gap-2 bg-navbar px-3 py-2'>
                             <UserCircleIcon className='size-5' />
                             { user.displayName }
                         </div>
