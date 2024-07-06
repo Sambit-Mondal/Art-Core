@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connect = mongoose.connect('mongodb://localhost:27017/ArtCore');
+const connect = mongoose.connect(process.env.MONGO_URL);
 
 
 
