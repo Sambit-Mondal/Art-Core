@@ -20,7 +20,9 @@ module.exports = {
       'sm': '0.7rem',
       'xl': '1.8rem',
       '2xl': '2.5rem',
-      '3xl': '5.6rem'
+      '3xl': '5.6rem',
+      'about': '2rem',
+      'md': '1.3rem'
     },
     dropShadow: {
       'btn': '0px 4px 4px rgba(0, 0, 0, 0.50)',
