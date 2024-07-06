@@ -26,7 +26,7 @@ function About() {
       <div className='flex flex-col pl-52 items-center justify-center w-auto'>
         <div className='flex flex-col items-center justify-center'>
           <p className='font-inter font-bold text-about pb-3'>ABOUT ME</p>
-          <hr className='w-96 pb-7' />
+          <hr className='w-96 mb-7 bg-black border-none h-[2px]' />
         </div>
         <div className='flex items-center justify-around w-auto pl-20 pt-8'>
           <div className="overflow-hidden flex items-center justify-center w-[40%] h-full pr-3 mr-16 rounded-full">

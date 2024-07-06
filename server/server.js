@@ -63,7 +63,8 @@ app.post("/login", async (req, res) => {
         if (isPasswordMatch) {
             res.status(200).json({
                 message: "Login successful!",
-                username: user.username
+                username: user.username,
+                email: user.email
             });
         } else {
             res.status(401).json({ message: "Check your password and try again!" });
@@ -94,6 +95,7 @@ app.post('/api/forgot-password', async (req, res) => {
             text: `Hi!\n\n` +
                 `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n` +
                 `Please click on the following link, or paste this into your browser to complete the process: ${resetLink} \n\n` +
+                `The link expires in 10 minutes. \n\n` +
                 `If you did not request this, please ignore this email and your password will remain unchanged.\n\n`
         };
 
@@ -127,6 +129,26 @@ app.post('/api/reset-password', async (req, res) => {
     } catch (error) {
         console.error("Error during reset password:", error);
         res.status(500).json({ message: 'An error occurred while resetting password' });
+    }
+});
+
+// New endpoint to handle contact form submission
+app.post('/api/send-email', async (req, res) => {
+    const { name, email, subject, message } = req.body;
+
+    const mailOptions = {
+        from: email,
+        to: process.env.EMAIL_ADMIN,
+        subject: `${subject}`,
+        text: `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully' });
+    } catch (error) {
+        console.error("Error sending email:", error);
+        res.status(500).json({ message: 'Failed to send email' });
     }
 });
 
