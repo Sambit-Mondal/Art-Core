@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
-function Login({ onClose }) {
+function Login({ loginVisibility, onClose }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
@@ -80,73 +80,91 @@ function Login({ onClose }) {
                             onChange={(e) => setNewPassword(e.target.value)}
                         />
                     </div>
-                    <div className='flex flex-col gap-2 py-2'>
-                        <label className='font-medium'>Confirm New Password</label>
+                    <div className='flex flex-col gap-2 py-2 mt-2'>
+                        <label className='font-medium'>Confirm Password</label>
                         <input
-                            type="password"
                             className='w-auto pl-2 py-1 rounded-sm'
+                            type="password"
                             placeholder='Confirm New Password'
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <button type="submit" className='w-full flex items-center justify-center bg-activeTab text-white font-semibold py-1 mt-4 cursor-pointer rounded-sm'>
-                            Update Password
-                        </button>
-                    </div>
-                </form>
-            ) : isForgotPassword ? (
-                <form className='flex flex-col' onSubmit={handleForgotPassword}>
-                    <div className='flex flex-col gap-2 py-2 mt-2'>
-                        <label className='font-medium'>Email</label>
-                        <input
-                            className='w-auto pl-2 py-1 rounded-sm'
-                            type="email"
-                            placeholder='e.g., john@gmail.com'
-                            value={forgotPasswordEmail}
-                            onChange={(e) => setForgotPasswordEmail(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit" className='w-full flex items-center justify-center bg-activeTab text-white font-semibold py-1 mt-4 cursor-pointer rounded-sm'>
-                            Send Password Reset Email
-                        </button>
-                    </div>
-                    <div className='w-full flex items-center justify-end pt-1 text-sm'>
-                        <p className='cursor-pointer' onClick={() => setIsForgotPassword(false)}>Back to Login</p>
-                    </div>
+                    <button
+                        className='w-auto bg-activeTab py-1 px-4 text-white font-medium mt-2 rounded-sm'
+                        type="submit"
+                    >
+                        Reset Password
+                    </button>
                 </form>
             ) : (
-                <form className='flex flex-col' onSubmit={handleLogin}>
-                    <div className='flex flex-col gap-2 py-2 mt-2'>
-                        <label className='font-medium'>Email</label>
-                        <input
-                            className='w-auto pl-2 py-1 rounded-sm'
-                            type="email"
-                            placeholder='e.g., john@gmail.com'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className='flex flex-col gap-2 py-2'>
-                        <label className='font-medium'>Password</label>
-                        <input
-                            type="password"
-                            className='w-auto pl-2 py-1 rounded-sm'
-                            placeholder='Enter Password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <button type="submit" className='w-full flex items-center justify-center bg-activeTab text-white font-semibold py-1 mt-4 cursor-pointer rounded-sm'>
-                            Login
-                        </button>
-                    </div>
-                    <div className='w-full flex items-center justify-end pt-1 text-sm'>
-                        <p className='cursor-pointer' onClick={() => setIsForgotPassword(true)}>Forgot Password?</p>
-                    </div>
+                <form className='flex flex-col' onSubmit={isForgotPassword ? handleForgotPassword : handleLogin}>
+                    {isForgotPassword ? (
+                        <div className='flex flex-col gap-2 py-2 mt-2'>
+                            <label className='font-medium'>Email</label>
+                            <input
+                                className='w-auto pl-2 py-1 rounded-sm'
+                                type="email"
+                                placeholder='Enter your email'
+                                value={forgotPasswordEmail}
+                                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                            />
+                        </div>
+                    ) : (
+                        <>
+                            <div className='flex flex-col gap-2 py-2 mt-2'>
+                                <label className='font-medium'>Email</label>
+                                <input
+                                    className='w-auto pl-2 py-1 rounded-sm'
+                                    type="email"
+                                    placeholder='Enter your email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className='flex flex-col gap-2 py-2 mt-2'>
+                                <label className='font-medium'>Password</label>
+                                <input
+                                    className='w-auto pl-2 py-1 rounded-sm'
+                                    type="password"
+                                    placeholder='Enter your password'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                        </>
+                    )}
+                    {isForgotPassword ? (
+                        <>
+                            <button
+                                className='w-auto bg-activeTab py-1 px-4 text-white font-medium mt-2 rounded-sm'
+                                type="submit"
+                            >
+                                Send Reset Password Email
+                            </button>
+                            <p
+                                className='w-full text-black text-socials flex items-center justify-end font-medium mt-2 cursor-pointer'
+                                onClick={() => setIsForgotPassword(false)}
+                            >
+                                Back to login
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                className='w-auto bg-activeTab py-1 px-4 text-white font-medium mt-2 rounded-sm'
+                                type="submit"
+                            >
+                                Login
+                            </button>
+                            <p
+                                className='w-full text-black text-socials flex items-center justify-end font-medium mt-2 cursor-pointer'
+                                onClick={() => setIsForgotPassword(true)}
+                            >
+                                Forgot Password?
+                            </p>
+                        </>
+                    )}
                 </form>
             )}
             <ToastContainer />

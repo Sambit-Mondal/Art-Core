@@ -3,6 +3,7 @@ import { auth, db } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
 
@@ -13,9 +14,13 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            setUser({ email: payload.email, displayName: payload.email });
-            setIsAdmin(payload.isAdmin);
+            const payload = jwtDecode(token);
+            if (payload.exp * 1000 > Date.now()) {
+                setUser({ email: payload.email, displayName: payload.email });
+                setIsAdmin(payload.isAdmin);
+            } else {
+                localStorage.removeItem('token');
+            }
         }
 
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {

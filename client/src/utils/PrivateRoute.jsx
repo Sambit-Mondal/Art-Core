@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import LoginPopup from '../Components/LoginPopup';
+import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ element }) => {
     const { user } = useContext(AuthContext);
 
-    return user ? element : <LoginPopup loginVisibility={() => {}} />;
+    return user ? element : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
