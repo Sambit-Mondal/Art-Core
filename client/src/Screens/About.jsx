@@ -13,7 +13,8 @@ function About() {
   }
 
   return (
-    <div className='select-none flex flex-col justify-center items-center z-40 absolute top-0 bottom-0 left-0 right-0'>
+    <>
+    <div className='select-none flex flex-col justify-center items-center z-40 h-screen'>
       <Username loginVisibility={loginVisibility} />
       {isLoginVisible && (
         <>
@@ -23,7 +24,7 @@ function About() {
       )}
 
       {/* About section */}
-      <div className='flex flex-col pl-52 items-center justify-center w-auto'>
+      <div className='flex flex-col  items-center justify-center w-auto'>
         <div className='flex flex-col items-center justify-center'>
           <p className='font-inter font-bold text-about pb-3'>ABOUT ME</p>
           <hr className='w-96 mb-7 bg-black border-none h-[2px]' />
@@ -43,8 +44,9 @@ function About() {
         </div>
       </div>
       <Chatbot />
-      <Footer />
     </div>
+      <Footer />
+      </>
   )
 }
 

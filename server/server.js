@@ -1,26 +1,33 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const usersModel = require('./database/dbConfig');
+const Artwork = require('./database/dbArtworks');
 
 const app = express();
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(bodyParser.json({ limit: '2097152' }));
+app.use(bodyParser.urlencoded({ limit: '2097152', extended: true }));
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.EMAIL_USER,
+        user: process.env.ADMIN_EMAIL,
         pass: process.env.EMAIL_PASS
     }
 });
 
+
+// Signup endpoint
 app.post("/signup", async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -29,6 +36,10 @@ app.post("/signup", async (req, res) => {
 
         if (existingUser) {
             return res.status(400).json({ message: "User already registered! Try logging in instead!" });
+        }
+
+        if (email === process.env.ADMIN_EMAIL) {
+            return res.status(400).json({ message: "Cannot register with this email!" });
         }
 
         const saltRounds = 10;
@@ -48,6 +59,8 @@ app.post("/signup", async (req, res) => {
     }
 });
 
+
+// Login endpoint
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -61,10 +74,15 @@ app.post("/login", async (req, res) => {
         const isPasswordMatch = await bcrypt.compare(password, user.password);
 
         if (isPasswordMatch) {
+            const isAdmin = email === process.env.ADMIN_EMAIL;
+            const token = jwt.sign({ email, isAdmin }, JWT_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
+
             res.status(200).json({
                 message: "Login successful!",
                 username: user.username,
-                email: user.email
+                email: user.email,
+                isAdmin,
+                token // Send the token to the client
             });
         } else {
             res.status(401).json({ message: "Check your password and try again!" });
@@ -73,6 +91,23 @@ app.post("/login", async (req, res) => {
         console.error("Error during login:", error);
         res.status(500).json({ message: "An error occurred while logging in" });
     }
+});
+
+// Middleware to verify JWT
+const authenticateToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+};
+
+// Protected route example
+app.get("/protected", authenticateToken, (req, res) => {
+    res.status(200).json({ message: "This is a protected route", user: req.user });
 });
 
 app.post('/api/forgot-password', async (req, res) => {
@@ -89,7 +124,7 @@ app.post('/api/forgot-password', async (req, res) => {
         const resetLink = `http://localhost:3000/login?token=${token}`;
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.ADMIN_EMAIL,
             to: user.email,
             subject: 'Password Reset',
             text: `Hi!\n\n` +
@@ -149,6 +184,39 @@ app.post('/api/send-email', async (req, res) => {
     } catch (error) {
         console.error("Error sending email:", error);
         res.status(500).json({ message: 'Failed to send email' });
+    }
+});
+
+
+// Endpoint to add a new artwork
+app.post('/api/artworks', async (req, res) => {
+    const { title, description, price, image, type } = req.body;
+
+    try {
+        const newArtwork = new Artwork({
+            title,
+            description,
+            price,
+            image,
+            type,
+        });
+
+        await newArtwork.save();
+        res.status(201).json({ message: 'Artwork added successfully!' });
+    } catch (error) {
+        console.error('Error adding artwork:', error);
+        res.status(500).json({ message: 'An error occurred while adding the artwork' });
+    }
+});
+
+// Endpoint to get all artworks
+app.get('/api/artworks', async (req, res) => {
+    try {
+        const artworks = await Artwork.find();
+        res.status(200).json(artworks);
+    } catch (error) {
+        console.error('Error fetching artworks:', error);
+        res.status(500).json({ message: 'An error occurred while fetching artworks' });
     }
 });
 

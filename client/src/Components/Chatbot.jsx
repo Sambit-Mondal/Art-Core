@@ -24,10 +24,10 @@ function Chatbot() {
         className='select-none fixed flex items-center justify-center bottom-6 right-6 overflow-hidden w-16 h-16 cursor-pointer rounded-full z-50'
         onClick={toggleChatbot}
       >
-        <img src={chatbot} alt="Chatbot" />
+        <img src={chatbot} alt="Chatbot" className='z-40' />
       </div>
       {isOpen && (
-        <div className='fixed bottom-5 right-8 w-[330px] h-[525px]'>
+        <div className='fixed bottom-5 right-8 w-[330px] h-[525px] z-40'>
           <ChatbotComponent
             config={config}
             messageParser={MessageParser}

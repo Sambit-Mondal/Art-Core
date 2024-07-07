@@ -12,23 +12,26 @@ import Navbar from './Components/Navbar';
 import LoginPopup from './Components/LoginPopup';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
+import PaintingPage from './Components/PaintingPage';
+import AddArtworks from './Screens/AddArtworks';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <div className='select-none flex flex-col justify-center items-center z-40 absolute top-0 bottom-0 left-0 right-0 bg-opacity-10 bg-black'>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/artworks" element={<PrivateRoute element={<Artworks />} />} />
-          <Route path="/contact" element={<PrivateRoute element={<ContactMe />} />} />
-          <Route path="/login" element={<LoginPopup loginVisibility={() => {}} />} />
-          <Route path="/signup" element={<LoginPopup loginVisibility={() => {}} />} />
-        </Routes>
-      </Router>
+        <Router>
+          <Routes>
+            <Route path="/" element={<><Navbar /><Home /></>} />
+            <Route path="/about" element={<><Navbar /><About /></>} />
+            <Route path="/artworks" element={<PrivateRoute element={ <><Navbar /><Artworks /></>} />} />
+            <Route path="/contact" element={<PrivateRoute element={<><Navbar /><ContactMe /></>} />} />
+            <Route path="/login" element={<><Navbar /><LoginPopup loginVisibility={() => { }} /></>} />
+            <Route path="/signup" element={<><Navbar /><LoginPopup loginVisibility={() => { }} /></>} />
+            <Route path='/add-artworks' element={<><Navbar /><AddArtworks /></>} />
+            <Route path="/painting-page" element={<><Navbar /><PaintingPage /></>} />
+          </Routes>
+        </Router>
       </div>
     </AuthProvider>
   </React.StrictMode>

@@ -1,18 +1,25 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            setUser({ email: payload.email, displayName: payload.email });
+            setIsAdmin(payload.isAdmin);
+        }
+
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
-                // User is logged in with Firebase (Google)
                 const userData = {
                     uid: firebaseUser.uid,
                     displayName: firebaseUser.displayName,
@@ -20,8 +27,7 @@ export const AuthProvider = ({ children }) => {
                 };
 
                 setUser(userData);
-                
-                // Save user info to Firestore if not already saved
+
                 const userRef = doc(db, 'users', firebaseUser.uid);
                 const docSnap = await getDoc(userRef);
 
@@ -30,6 +36,7 @@ export const AuthProvider = ({ children }) => {
                 }
             } else {
                 setUser(null);
+                setIsAdmin(false);
             }
         });
 
@@ -52,9 +59,11 @@ export const AuthProvider = ({ children }) => {
                 toast.success(data.message, { position: 'top-center' });
                 const loggedInUser = {
                     email: email,
-                    displayName: data.username // Assuming username is returned from backend
+                    displayName: data.username,
                 };
                 setUser(loggedInUser);
+                setIsAdmin(data.isAdmin);
+                localStorage.setItem('token', data.token); // Store the token in localStorage
                 return loggedInUser;
             } else {
                 toast.error(data.message, { position: 'top-center' });
@@ -70,13 +79,15 @@ export const AuthProvider = ({ children }) => {
         try {
             await signOut(auth);
             setUser(null);
+            setIsAdmin(false);
+            localStorage.removeItem('token'); // Remove the token from localStorage on logout
         } catch (error) {
             console.error('Error signing out:', error);
         }
     };
 
     return (
-        <AuthContext.Provider value={{ user, setUser, loginUserWithEmailAndPassword, logout }}>
+        <AuthContext.Provider value={{ user, setUser, isAdmin, loginUserWithEmailAndPassword, logout }}>
             {children}
         </AuthContext.Provider>
     );
