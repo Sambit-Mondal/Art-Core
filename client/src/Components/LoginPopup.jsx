@@ -91,8 +91,8 @@ function LoginPopup({ loginVisibility }) {
                 <XMarkIcon className='w-6 h-6 cursor-pointer' onClick={onClose} />
             </div>
             <div className='flex justify-around items-center'>
-                <div className={`${loginVisible ? 'duration-100 bg-activeTab text-white' : 'duration-100 hover:border-b-2 border-activeTab'} w-full p-2 flex items-center justify-center font-semibold cursor-pointer`} onClick={loginScreen}>Login</div>
-                <div className={`${signupVisible ? 'duration-100 bg-activeTab text-white' : 'duration-100 hover:border-b-2 border-activeTab'} w-full p-2 flex items-center justify-center font-semibold cursor-pointer`} onClick={signupScreen}>Signup</div>
+                <div className={`${loginVisible ? 'transition duration-150 ease-in-out bg-activeTab text-white' : 'transition duration-150 ease-in-out hover:border-b-2 border-activeTab'} w-full p-2 flex items-center justify-center font-semibold cursor-pointer`} onClick={loginScreen}>Login</div>
+                <div className={`${signupVisible ? 'transition duration-150 ease-in-out bg-activeTab text-white' : 'transition duration-150 ease-in-out hover:border-b-2 border-activeTab'} w-full p-2 flex items-center justify-center font-semibold cursor-pointer`} onClick={signupScreen}>Signup</div>
             </div>
 
             {loginVisible ? (
@@ -109,7 +109,7 @@ function LoginPopup({ loginVisibility }) {
                 <div className="flex-grow border-t border-gray-400"></div>
             </div>
             <div className='flex items-center justify-center w-full gap-2 mb-3'>
-                <div className='flex items-center justify-center gap-5 font-semibold p-2 px-10 rounded-sm w-auto bg-white cursor-pointer' onClick={handleGoogleLogin}>
+                <div className='flex items-center justify-center gap-5 font-semibold p-2 px-10 rounded-sm w-auto bg-white cursor-pointer transition duration-150' onClick={handleGoogleLogin}>
                     <img src={google} alt="Google" className='w-6 h-6' />
                     <p>Google</p>
                 </div>
