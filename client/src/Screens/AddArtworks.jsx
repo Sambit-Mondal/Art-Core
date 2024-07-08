@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Chatbot from '../Components/Chatbot';
 import Login from '../Components/Login';
 import Username from '../Components/Username';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -13,7 +13,7 @@ function AddArtworks() {
     const [price, setPrice] = useState('');
     const [image, setImage] = useState('');
     const [type, setType] = useState('');
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     function loginVisibility() {
         setLoginVisible((prev) => (!prev));
@@ -44,7 +44,7 @@ function AddArtworks() {
             toast.success('Artwork uploaded successfully!', {
                 position: 'top-center'
             });
-            navigate('/artworks'); // Redirect to artworks page after successful upload
+            // navigate('/'); // Redirect to artworks page after successful upload
         } catch (error) {
             console.error('Error uploading artwork:', error);
             toast.error('Failed to upload artwork.', {
@@ -113,10 +113,10 @@ function AddArtworks() {
                         <div className='flex flex-col gap-2 py-2 w-full items-start justify-center'>
                             <label className='font-medium'>Type:</label>
                             <div className='w-full flex flex-wrap gap-x-5 gap-y-2'>
-                                <p className={`p-1 px-2 flex items-center justify-center font-semibold bg-background transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'LIPPAN ART' ? 'bg-activeTab text-white' : 'hover:bg-activeTab hover:text-white'}`} onClick={() => setType('LIPPAN ART')}>LIPPAN ART</p>
-                                <p className={`p-1 px-2 flex items-center justify-center font-semibold bg-background transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'WALL HANGING' ? 'bg-activeTab text-white' : 'hover:bg-activeTab hover:text-white'}`} onClick={() => setType('WALL HANGING')}>WALL HANGING</p>
-                                <p className={`p-1 px-2 flex items-center justify-center font-semibold bg-background transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'CANVAS' ? 'bg-activeTab text-white' : 'hover:bg-activeTab hover:text-white'}`} onClick={() => setType('CANVAS')}>CANVAS</p>
-                                <p className={`p-1 px-2 flex items-center justify-center font-semibold bg-background transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'BOOKMARKS' ? 'bg-activeTab text-white' : 'hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>BOOKMARKS</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'LIPPAN ART' ? 'bg-activeTab text-white z-10' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('LIPPAN ART')}>LIPPAN ART</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'WALL HANGING' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('WALL HANGING')}>WALL HANGING</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'CANVAS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('CANVAS')}>CANVAS</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'BOOKMARKS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>BOOKMARKS</p>
                             </div>
                         </div>
                     </div>

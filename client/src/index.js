@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <div className='select-none flex flex-col justify-center items-center z-40 bg-opacity-10 w-screen h-screen bg-black'>
+      <div className='select-none flex flex-col justify-center items-center z-40 bg-opacity-10 h-screen bg-black'>
         <Router>
           <Routes>
             <Route path="/" element={<><Navbar /><Home /></>} />

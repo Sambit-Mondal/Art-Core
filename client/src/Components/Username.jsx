@@ -4,13 +4,17 @@ import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { AuthContext } from '../context/AuthContext';
 import { auth } from '../firebase/Firebase';
 import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 function Username({ loginVisibility }) {
     const { user, setUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         await signOut(auth);
         setUser(null);
+        window.location.reload();
+        navigate('/');
     };
 
     return (

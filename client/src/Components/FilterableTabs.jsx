@@ -13,7 +13,7 @@ function FilterableTabs({ onFilter }) {
             {tabs.map((tab) => (
                 <button
                     key={tab}
-                    className={`px-6 py-2 rounded-sm text-black font-semibold transition duration-150 hover:bg-activeTab hover:text-white ${selectedTab === tab ? 'bg-activeTab text-white' : 'bg-navbar'}`}
+                    className={`px-6 py-2 rounded-sm text-black font-semibold transition duration-150 bg-navbar hover:bg-activeTab hover:text-white ${selectedTab === tab ? 'bg-activeTab text-white' : ''}`}
                     onClick={() => setSelectedTab(tab)}
                 >
                     {tab}
