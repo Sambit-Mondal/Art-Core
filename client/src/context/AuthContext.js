@@ -3,7 +3,7 @@ import { auth, db } from '../firebase/Firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'
 
 export const AuthContext = createContext();
 
@@ -32,6 +32,14 @@ export const AuthProvider = ({ children }) => {
                 };
 
                 setUser(userData);
+
+                // Check if the user is an admin based on the email
+                const adminEmail = process.env.ADMIN_EMAIL; // Replace with your admin email
+                if (firebaseUser.email === adminEmail) {
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
 
                 const userRef = doc(db, 'users', firebaseUser.uid);
                 const docSnap = await getDoc(userRef);
