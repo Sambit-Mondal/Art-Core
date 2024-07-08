@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { NavLink } from 'react-router-dom';
 
 function Painting({ artwork }) {
   const trimmedDescription = artwork.description.length > 350
@@ -14,7 +15,11 @@ function Painting({ artwork }) {
             <p className='text-md font-bold'>
               {artwork.title}
             </p>
-            <button className='bg-navbar text-black font-semibold rounded-sm p-1 px-3 duration-150 transition hover:bg-activeTab hover:text-white'>More details</button>
+            <NavLink to={`/painting-details/${artwork._id}`}>
+              <button className='bg-navbar text-black font-semibold rounded-sm p-1 px-3 duration-150 transition hover:bg-activeTab hover:text-white'>
+                More details
+              </button>
+            </NavLink>
           </div>
           <div className='flex flex-wrap max-w-full items-center justify-center text-sm font-inter tracking-wider p-1 mt-3 overflow-hidden'>
             {trimmedDescription}
@@ -23,13 +28,16 @@ function Painting({ artwork }) {
             <div className='text-artworks font-semibold'>
               Rs. {artwork.price}
             </div>
-            <button className='bg-navbar text-black font-semibold rounded-sm flex items-center justify-around p-1 px-3 gap-3 duration-150 transition hover:bg-activeTab hover:text-white'>
-              <ShoppingCartIcon className='size-5' /> Buy
-            </button>
+            <NavLink to={`/painting-details/${artwork._id}`}>
+              <button className='bg-navbar text-black font-semibold rounded-sm flex items-center justify-center gap-2 p-1 px-2 duration-150 transition hover:bg-activeTab hover:text-white'>
+                <ShoppingCartIcon className='h-5 w-5 ml-1' />
+                <p className='pl-1'>Buy</p>
+              </button>
+            </NavLink>
           </div>
         </div>
         <div className="w-full h-full duration-150 transition group-hover:scale-105 group-hover:blur-sm">
-          <img src={artwork.image} alt={artwork.title} className="w-full h-full object-cover" />
+          <img src={artwork.image} alt={artwork.title} className='w-full h-full object-cover cursor-pointer' />
         </div>
       </div>
     </div>
