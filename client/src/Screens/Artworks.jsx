@@ -6,10 +6,11 @@ import Login from '../Components/LoginPopup';
 import Painting from '../Components/Painting';
 import FilterableTabs from '../Components/FilterableTabs';
 import Footer from '../Components/Footer';
+import { useArtworks } from '../context/ArtworksContext';
 
 function Artworks() {
   const [isLoginVisible, setLoginVisible] = useState(false);
-  const [artworks, setArtworks] = useState([]);
+  const { artworks, setArtworks } = useArtworks();
   const [filteredArtworks, setFilteredArtworks] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function Artworks() {
     };
 
     fetchArtworks();
-  }, []);
+  }, [setArtworks]);
 
   const filterArtworks = (type) => {
     if (type === 'ALL') {
@@ -39,34 +40,32 @@ function Artworks() {
   }
 
   return (
-    <>
-      <div className='select-none flex flex-col items-center justify-between w-full min-h-screen bg-background pt-10'>
-        <div className='w-full fixed bg-background top-0 pt-10 flex flex-col items-center justify-center z-20'>
-          <Username loginVisibility={loginVisibility} />
-          {isLoginVisible && (
-            <>
-              <Login loginVisibility={loginVisibility} />
-              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-            </>
-          )}
-          <div className='flex flex-col items-center justify-center'>
-            <p className='font-inter font-bold text-about pb-1'>MY ARTWORKS</p>
-            <hr className='w-96 mb-8 bg-black border-none h-[2px]' />
-          </div>
-          <FilterableTabs onFilter={filterArtworks} />
+    <div className='select-none flex flex-col items-center justify-between w-full min-h-screen bg-background pt-10'>
+      <div className='w-full fixed bg-background top-0 pt-10 flex flex-col items-center justify-center z-20'>
+        <Username loginVisibility={loginVisibility} />
+        {isLoginVisible && (
+          <>
+            <Login loginVisibility={loginVisibility} />
+            <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+          </>
+        )}
+        <div className='flex flex-col items-center justify-center'>
+          <p className='font-inter font-bold text-about pb-1'>MY ARTWORKS</p>
+          <hr className='w-96 mb-8 bg-black border-none h-[2px]' />
         </div>
-
-        <div className='w-full mt-44 flex flex-col items-center justify-center bg-background'>
-          <div className='w-[85%] h-auto p-3 flex flex-wrap gap-6 items-center justify-center'>
-            {filteredArtworks.map((artwork) => (
-              <Painting key={artwork._id} artwork={artwork} />
-            ))}
-          </div>
-        </div>
-        <Chatbot />
+        <FilterableTabs onFilter={filterArtworks} />
       </div>
+
+      <div className='w-full mt-44 flex flex-col items-center justify-center bg-background'>
+        <div className='w-[85%] h-auto p-3 flex flex-wrap gap-6 items-center justify-center'>
+          {filteredArtworks.map((artwork) => (
+            <Painting key={artwork._id} artwork={artwork} />
+          ))}
+        </div>
+      </div>
+      <Chatbot />
       <Footer />
-    </>
+    </div>
   );
 }
 
