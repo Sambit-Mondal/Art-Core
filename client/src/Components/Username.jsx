@@ -22,12 +22,12 @@ function Username({ loginVisibility }) {
             <div>
                 {user ? (
                     <div className='flex z-30 items-center justify-center w-auto fixed right-6 top-6 gap-4'>
-                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm font-semibold gap-2 bg-navbar px-3 py-2'>
+                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm font-semibold gap-2 bg-navbar px-3 py-2 drop-shadow-login-btn shadow-login-btn'>
                             <UserCircleIcon className='size-5' />
                             { user.displayName }
                         </div>
                         <div className="flex items-center justify-center w-auto h-auto gap-5 font-semibold">
-                            <button className='flex items-center justify-center w-auto h-auto bg-navbar p-2 px-3 rounded-sm cursor-pointer transition duration-150 ease-in-out hover:bg-activeTab hover:text-white' onClick={handleLogout}>
+                            <button className='flex items-center justify-center w-auto h-auto bg-navbar p-2 px-3 rounded-sm cursor-pointer transition duration-150 ease-in-out hover:bg-activeTab hover:text-white drop-shadow-login-btn shadow-login-btn' onClick={handleLogout}>
                                 Logout
                             </button>
                         </div>
