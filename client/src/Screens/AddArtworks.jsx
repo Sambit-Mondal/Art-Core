@@ -82,7 +82,7 @@ function AddArtworks() {
                         />
                     </div>
                     <div className='flex flex-col gap-2 py-2'>
-                        <label className='font-medium'>Description</label>
+                        <label className='font-medium'>Description {'(under 300 characters)'}:</label>
                         <textarea
                             type="text"
                             className='w-auto pl-2 py-1 rounded-sm'
