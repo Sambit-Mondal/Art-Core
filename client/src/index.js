@@ -14,6 +14,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import PaintingDetails from './Screens/PaintingDetails';
 import AddArtworks from './Screens/AddArtworks';
 import { ArtworksProvider } from './context/ArtworksContext'; // Import the provider
+import UserAddress from './Components/UserAddress';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +32,7 @@ root.render(
               <Route path="/signup" element={<><Navbar /><LoginPopup loginVisibility={() => { }} /></>} />
               <Route path='/add-artworks' element={<PrivateRoute element={<><Navbar /><AddArtworks /></>} />} />
               <Route path="/painting-details/:id" element={<><Navbar /><PaintingDetails /></>} />
+              <Route path='/user-address' element={<><Navbar /><UserAddress /></>} />
             </Routes>
           </div>
         </Router>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Username from '../Components/Username';
 import Login from '../Components/LoginPopup';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useArtworks } from '../context/ArtworksContext';
+import UserAddress from '../Components/UserAddress';
 
 function PaintingDetails() {
   const { id } = useParams();
@@ -11,6 +12,8 @@ function PaintingDetails() {
   const painting = artworks.find((artwork) => artwork._id === id);
   const [quantity, setQuantity] = useState(1);
   const [isLoginVisible, setLoginVisible] = useState(false);
+  const [isAddressVisible, setAddressVisible] = useState(false);
+  const popupRef = useRef(null);
 
   function loginVisibility() {
     setLoginVisible((prev) => !prev);
@@ -26,16 +29,46 @@ function PaintingDetails() {
     }
   };
 
+  const toggleAddressVisibility = () => {
+    setAddressVisible((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setAddressVisible(false);
+      }
+    };
+
+    if (isAddressVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAddressVisible]);
+
   if (!painting) {
     return <div>Artwork not found</div>;
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-background">
+    <div className="relative flex flex-col justify-center h-full w-full bg-background">
       <Username loginVisibility={loginVisibility} />
       {isLoginVisible && (
         <>
           <Login loginVisibility={loginVisibility} />
+          <div className=" bg-black opacity-50 z-40"></div>
+        </>
+      )}
+      {isAddressVisible && (
+        <>
+          <div ref={popupRef} className='z-50 inset-0 flex items-center justify-center w-full h-full'>
+            <UserAddress />
+          </div>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
         </>
       )}
@@ -45,11 +78,13 @@ function PaintingDetails() {
         </div>
         <div className="flex items-center justify-between w-full h-full gap-6">
           <div className="flex items-center justify-center w-[50%] h-[90%] overflow-hidden p-3 border-2">
-            <img
-              src={painting.image}
-              alt={painting.title}
-              className="w-full h-full object-cover cursor-pointer transition duration-150 ease-in-out hover:scale-105"
-            />
+            <div className='w-full h-full flex items-center overflow-hidden'>
+              <img
+                src={painting.image}
+                alt={painting.title}
+                className="w-full h-full object-cover cursor-pointer transition duration-150 ease-in-out hover:scale-110"
+              />
+            </div>
           </div>
           <div className="flex flex-col w-full h-full items-center justify-between">
             <div className="text-[1rem] flex-wrap w-full h-full font-semibold font-inter tracking-wide flex items-center justify-center">
@@ -78,7 +113,8 @@ function PaintingDetails() {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
+          onClick={toggleAddressVisibility}
           className="w-full py-1 flex items-center justify-center bg-hoverTabs text-black font-inter font-semibold rounded-sm transition duration-150 ease-in-out hover:bg-activeTab hover:text-white"
         >
           BUY NOW
