@@ -7,6 +7,10 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const usersModel = require('./database/dbConfig');
 const Artwork = require('./database/dbArtworks');
+const Payment = require('./database/dbPayment');
+const Razorpay = require('razorpay');
+const EmailService = require('./services/EmailService');
+
 
 const app = express();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -14,9 +18,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(bodyParser.json({ limit: '2097152' }));
-app.use(bodyParser.urlencoded({ limit: '2097152', extended: true }));
+app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -220,7 +224,63 @@ app.get('/api/artworks', async (req, res) => {
     }
 });
 
-const port = 5000;
+
+// Initialize Razorpay instance
+const instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+// Route to create an order
+app.post('/api/create-order', async (req, res) => {
+    const { amount } = req.body;
+    try {
+        const order = await instance.orders.create({
+            amount: amount/100,
+            currency: 'INR',
+            payment_capture: 1, // auto-capture
+        });
+        console.log('Order created:', order); // Log the created order
+        res.status(201).json({ orderId: order.id });
+    } catch (error) {
+        console.error('Error creating order:', error); // Log any errors
+        res.status(500).send('Error creating order');
+    }
+});
+
+// Route to handle payment success
+app.post('/api/payment-success', async (req, res) => {
+    const { razorpayPaymentId, razorpayOrderId, razorpaySignature, address, title, quantity } = req.body;
+    try {
+        // Store payment details in the database
+        await Payment.create({
+            razorpayPaymentId,
+            razorpayOrderId,
+            razorpaySignature,
+            address,
+            title,
+            quantity,
+        });
+
+        // Send email to admin
+        const emailService = new EmailService();
+        await emailService.sendPaymentSuccessEmail({
+            paymentId: razorpayPaymentId,
+            orderId: razorpayOrderId,
+            address,
+            title,
+            quantity,
+        });
+
+        res.status(200).send('Payment successful');
+    } catch (error) {
+        console.error('Error handling payment success:', error); // Log any errors
+        res.status(500).send('Error handling payment success');
+    }
+});
+
+// PORT
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
