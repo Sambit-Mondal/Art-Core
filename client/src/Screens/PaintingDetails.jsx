@@ -5,6 +5,7 @@ import Login from '../Components/LoginPopup';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useArtworks } from '../context/ArtworksContext';
 import UserAddress from '../Components/UserAddress';
+import axios from 'axios';
 
 function PaintingDetails() {
   const { id } = useParams();
@@ -51,6 +52,49 @@ function PaintingDetails() {
     };
   }, [isAddressVisible]);
 
+  const handleAddressSubmit = async (address) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/create-order', {
+        amount: painting.price * quantity,
+      });
+
+      const { orderId } = response.data;
+
+      const options = {
+        key: process.env.RAZORPAY_KEY_ID, // Ensure you're using the correct environment variable here
+        amount: painting.price * quantity * 100, // Amount in paise
+        currency: 'INR',
+        name: 'ArtCore',
+        description: painting.title,
+        image: painting.image,
+        order_id: orderId,
+        handler: async function (response) {
+          await axios.post('http://localhost:5000/api/payment-success', {
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpayOrderId: response.razorpay_order_id,
+            razorpaySignature: response.razorpay_signature,
+            address,
+            title: painting.title,
+            quantity,
+          });
+        },
+        prefill: {
+          name: localStorage.getItem('username'),
+          email: localStorage.getItem('email'),
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.error('Error during order creation or payment:', error);
+    }
+  };
+
+
   if (!painting) {
     return <div>Artwork not found</div>;
   }
@@ -67,7 +111,7 @@ function PaintingDetails() {
       {isAddressVisible && (
         <>
           <div ref={popupRef} className='z-50 inset-0 flex items-center justify-center w-full h-full'>
-            <UserAddress />
+            <UserAddress onSubmit={handleAddressSubmit} />
           </div>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
         </>
@@ -78,13 +122,11 @@ function PaintingDetails() {
         </div>
         <div className="flex items-center justify-between w-full h-full gap-6">
           <div className="flex items-center justify-center w-[50%] h-[90%] overflow-hidden p-3 border-2">
-            <div className='w-full h-full flex items-center overflow-hidden'>
-              <img
-                src={painting.image}
-                alt={painting.title}
-                className="w-full h-full object-cover cursor-pointer transition duration-150 ease-in-out hover:scale-110"
-              />
-            </div>
+            <img
+              src={painting.image}
+              alt={painting.title}
+              className="w-full h-full object-cover cursor-pointer transition duration-150 ease-in-out hover:scale-105"
+            />
           </div>
           <div className="flex flex-col w-full h-full items-center justify-between">
             <div className="text-[1rem] flex-wrap w-full h-full font-semibold font-inter tracking-wide flex items-center justify-center">
