@@ -236,7 +236,7 @@ app.post('/api/create-order', async (req, res) => {
     const { amount } = req.body;
     try {
         const order = await instance.orders.create({
-            amount: amount/100,
+            amount: amount * 100,
             currency: 'INR',
             payment_capture: 1, // auto-capture
         });

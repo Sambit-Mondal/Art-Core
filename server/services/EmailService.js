@@ -1,7 +1,5 @@
 const nodemailer = require('nodemailer');
-const dotenv = require('dotenv');
-
-dotenv.config();
+require('dotenv').config();
 
 class EmailService {
     constructor() {
@@ -19,11 +17,13 @@ class EmailService {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL,
             subject: 'Payment Successful',
-            text: `Payment ID: ${paymentId}\nOrder ID: ${orderId}\nAddress: ${address}\nTitle: ${title}\nQuantity: ${quantity}`,
+            text: `Payment ID: ${paymentId}\n\nOrder ID: ${orderId}\n\nAddress: ${address}\n\nTitle: ${title}\n\nQuantity: ${quantity}`
         };
 
         try {
+            console.log('Sending email with options:', mailOptions);
             await this.transporter.sendMail(mailOptions);
+            console.log('Email sent successfully');
         } catch (error) {
             console.error('Error sending email:', error);
         }
