@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginUserWithEmailAndPassword = async (email, password) => {
         try {
-            const response = await fetch('https://art-core-backend.vercel.app/login', {
+            const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

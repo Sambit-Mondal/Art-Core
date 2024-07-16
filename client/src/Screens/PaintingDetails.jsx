@@ -54,7 +54,7 @@ function PaintingDetails() {
 
   const handleAddressSubmit = async (address) => {
     try {
-      const response = await axios.post('https://art-core-backend.vercel.app/api/create-order', {
+      const response = await axios.post('http://localhost:5000/api/create-order', {
         amount: painting.price * quantity,
       });
 
@@ -69,7 +69,7 @@ function PaintingDetails() {
         image: painting.image,
         order_id: orderId,
         handler: async function (response) {
-          await axios.post('https://art-core-backend.vercel.app/api/payment-success', {
+          await axios.post('http://localhost:5000/api/payment-success', {
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
