@@ -18,7 +18,7 @@ function LoginPopup({ loginVisibility }) {
     const onClose = useCallback(() => {
         loginVisibility((prev) => (!prev));
         navigate('/');
-    }, [loginVisibility]);
+    }, [loginVisibility, navigate]);
 
     const onSignupSuccess = () => {
         setLoginVisible(true);
