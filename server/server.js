@@ -125,7 +125,7 @@ app.post('/api/forgot-password', async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '10m' });
-        const resetLink = `http://localhost:3000/login?token=${token}`;
+        const resetLink = `https://art-core.onrender.com/login?token=${token}`;
 
         const mailOptions = {
             from: process.env.ADMIN_EMAIL,
