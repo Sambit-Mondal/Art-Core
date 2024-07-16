@@ -42,7 +42,7 @@ function ContactMe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://192.168.0.115:5000/api/send-email', formData);
+      await axios.post('http://localhost:5000/api/send-email', formData);
       toast.success('Email sent successfully!', { position: 'top-center' });
       setFormData({ name: '', email: user.email, subject: '', message: '' });
     } catch (error) {
@@ -52,7 +52,7 @@ function ContactMe() {
 
   return (
     <>
-      <div className='select-none h-screen overflow-y-auto overflow-x-hidden w-full flex flex-col justify-center items-center z-40 pb-16'>
+      <div className='select-none h-screen overflow-y-auto overflow-x-hidden lg:overflow-y-hidden w-full flex flex-col justify-center items-center z-40 pb-16'>
         <Username loginVisibility={loginVisibility} />
         {isLoginVisible && (
           <>
@@ -61,7 +61,7 @@ function ContactMe() {
           </>
         )}
         <div className='flex flex-col  items-center justify-center w-auto'>
-          <div className='flex flex-col items-center justify-center mt-40 lg:mt-4'>
+          <div className='flex flex-col items-center justify-center mt-40 lg:mt-20'>
             <p className='font-inter font-bold text-[1.5rem] lg:text-about pb-3'>CONTACT ME</p>
             <hr className='w-[15rem] lg:w-[30rem] mb-7 bg-black border-none h-[2px]' />
           </div>

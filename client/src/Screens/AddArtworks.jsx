@@ -46,7 +46,7 @@ function AddArtworks() {
         };
 
         try {
-            await axios.post('http://192.168.0.115:5000/api/artworks', artwork);
+            await axios.post('http://localhost:5000/api/artworks', artwork);
             toast.success('Artwork uploaded successfully!', {
                 position: 'top-center'
             });
