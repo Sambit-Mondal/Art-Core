@@ -292,6 +292,6 @@ app.post('/api/payment-success', async (req, res) => {
 
 // PORT
 const port = process.env.PORT;
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
