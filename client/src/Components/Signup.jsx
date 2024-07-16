@@ -11,7 +11,7 @@ function Signup({ onSignupSuccess }) {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5000/signup', {
+            const response = await fetch('https://art-core-backend.vercel.app/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

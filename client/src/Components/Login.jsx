@@ -41,7 +41,7 @@ function Login({ loginVisibility, onClose }) {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/forgot-password', { email: forgotPasswordEmail });
+            const response = await axios.post('https://art-core-backend.vercel.app/api/forgot-password', { email: forgotPasswordEmail });
             toast.success(response.data.message, { position: 'top-center' });
             setIsForgotPassword(false);
         } catch (error) {
@@ -57,7 +57,7 @@ function Login({ loginVisibility, onClose }) {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/reset-password', { token, newPassword });
+            const response = await axios.post('https://art-core-backend.vercel.app/api/reset-password', { token, newPassword });
             toast.success(response.data.message, { position: 'top-center' });
             setIsResetPassword(false);
             navigate('/login');
