@@ -171,6 +171,8 @@ app.post('/api/reset-password', async (req, res) => {
     }
 });
 
+
+
 // New endpoint to handle contact form submission
 app.post('/api/send-email', async (req, res) => {
     const { name, email, subject, message } = req.body;
@@ -213,6 +215,8 @@ app.post('/api/artworks', async (req, res) => {
     }
 });
 
+
+
 // Endpoint to get all artworks
 app.get('/api/artworks', async (req, res) => {
     try {
@@ -225,11 +229,14 @@ app.get('/api/artworks', async (req, res) => {
 });
 
 
+
 // Initialize Razorpay instance
 const instance = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
+
+
 
 // Route to create an order
 app.post('/api/create-order', async (req, res) => {
@@ -247,6 +254,8 @@ app.post('/api/create-order', async (req, res) => {
         res.status(500).send('Error creating order');
     }
 });
+
+
 
 // Route to handle payment success
 app.post('/api/payment-success', async (req, res) => {
@@ -279,8 +288,10 @@ app.post('/api/payment-success', async (req, res) => {
     }
 });
 
+
+
 // PORT
 const port = process.env.PORT;
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port: ${port}`);
 });

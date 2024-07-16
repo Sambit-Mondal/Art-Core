@@ -16,7 +16,7 @@ function Artworks() {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/artworks');
+        const response = await axios.get('http://192.168.0.115:5000/api/artworks' );
         setArtworks(response.data);
         setFilteredArtworks(response.data);
       } catch (error) {
@@ -40,7 +40,7 @@ function Artworks() {
   }
 
   return (
-    <div className='select-none flex flex-col items-center justify-between w-full min-h-screen bg-background pt-10'>
+    <div className='select-none flex flex-col items-center justify-between w-full h-screen bg-background pt-10'>
       <div className='w-full fixed bg-background top-0 pt-10 flex flex-col items-center justify-center z-20'>
         <Username loginVisibility={loginVisibility} />
         {isLoginVisible && (
@@ -49,15 +49,15 @@ function Artworks() {
             <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           </>
         )}
-        <div className='flex flex-col items-center justify-center'>
-          <p className='font-inter font-bold text-about pb-1'>MY ARTWORKS</p>
-          <hr className='w-96 mb-8 bg-black border-none h-[2px]' />
+        <div className='flex flex-col items-center justify-center mt-8 lg:mt-4'>
+          <p className='font-inter font-bold text-[1.5rem] lg:text-about pb-3'>MY ARTWORKS</p>
+          <hr className='w-[15rem] lg:w-[30rem] mb-8 bg-black border-none h-[2px]' />
         </div>
         <FilterableTabs onFilter={filterArtworks} />
       </div>
 
-      <div className='w-full mt-44 flex flex-col items-center justify-center bg-background'>
-        <div className='w-[85%] h-auto p-3 flex flex-wrap gap-6 items-center justify-center'>
+      <div className='w-full mt-64 pb-24 lg:mt-44 flex flex-col items-center justify-center bg-background'>
+        <div className='w-full lg:w-[85%] h-auto p-3 flex flex-wrap gap-6 items-center justify-center'>
           {filteredArtworks.map((artwork) => (
             <Painting key={artwork._id} artwork={artwork} />
           ))}

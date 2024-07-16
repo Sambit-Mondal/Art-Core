@@ -46,7 +46,7 @@ function AddArtworks() {
         };
 
         try {
-            await axios.post('http://localhost:5000/api/artworks', artwork);
+            await axios.post('http://192.168.0.115:5000/api/artworks', artwork);
             toast.success('Artwork uploaded successfully!', {
                 position: 'top-center'
             });
@@ -60,7 +60,7 @@ function AddArtworks() {
     };
 
     return (
-        <div className='select-none flex flex-col justify-center items-center z-40 min-h-screen bg-background'>
+        <div className='select-none flex flex-col justify-center items-center z-40 h-screen w-screen lg:w-full lg:min-h-screen overflow-y-auto overflow-x-hidden bg-background'>
             <div className='flex flex-col  items-center justify-center w-auto'>
                 <Username loginVisibility={loginVisibility} />
                 {isLoginVisible && (
@@ -70,12 +70,12 @@ function AddArtworks() {
                     </>
                 )}
                 <div className='flex flex-col items-center justify-center'>
-                    <p className='font-inter font-bold text-about pb-1'>ADD ARTWORK</p>
-                    <hr className='w-96 mb-4 bg-black border-none h-[2px]' />
+                    <p className='font-inter font-bold text-[1.5rem] lg:text-about pb-1'>ADD ARTWORK</p>
+                    <hr className='w-[15rem] lg:w-[30rem] mb-4 bg-black border-none h-[2px]' />
                 </div>
             </div>
 
-            <div className='bg-navbar w-[40rem] h-auto rounded-sm'>
+            <div className='bg-navbar w-screen lg:w-[40rem] h-auto rounded-sm'>
                 <form className='flex flex-col w-auto p-5 py-4' onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-2 py-2'>
                         <label className='font-medium'>Title:</label>
@@ -123,6 +123,7 @@ function AddArtworks() {
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'WALL HANGING' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('WALL HANGING')}>WALL HANGING</p>
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'CANVAS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('CANVAS')}>CANVAS</p>
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'BOOKMARKS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>BOOKMARKS</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'DIGITAL' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>DIGITAL</p>
                             </div>
                         </div>
                     </div>

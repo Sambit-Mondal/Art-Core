@@ -54,7 +54,7 @@ function PaintingDetails() {
 
   const handleAddressSubmit = async (address) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/create-order', {
+      const response = await axios.post('http://192.168.0.115:5000/api/create-order', {
         amount: painting.price * quantity,
       });
 
@@ -69,7 +69,7 @@ function PaintingDetails() {
         image: painting.image,
         order_id: orderId,
         handler: async function (response) {
-          await axios.post('http://localhost:5000/api/payment-success', {
+          await axios.post('http://192.168.0.115:5000/api/payment-success', {
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
@@ -100,7 +100,7 @@ function PaintingDetails() {
   }
 
   return (
-    <div className="relative flex flex-col justify-center h-full w-full bg-background">
+    <div className="lg:relative overflow-hidden flex flex-col items-center justify-center h-screen w-screen lg:(w-full h-full) bg-background pb-7">
       <Username loginVisibility={loginVisibility} />
       {isLoginVisible && (
         <>
@@ -116,23 +116,31 @@ function PaintingDetails() {
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
         </>
       )}
-      <div className='flex flex-col items-center justify-center h-full w-full p-10 py-16 px-48'>
-        <div className="flex flex-col border-b-2 w-2/4 border-solid items-center justify-center font-bold font-inter text-md tracking-wider pb-2">
+
+
+      <div className='flex flex-col items-center justify-center h-full w-full p-10 py-16 px-48 gap-5'>
+
+        <div className="flex flex-col border-b-2 lg:w-2/4 border-solid items-center justify-center font-bold font-inter text-md tracking-wider">
           {painting.title}
         </div>
-        <div className="flex items-center justify-between w-full h-full gap-6">
-          <div className="flex items-center justify-center w-[50%] h-[90%] overflow-hidden p-3 border-2">
+
+        <div className="flex flex-col lg:flex-row items-center justify-between w-[90vw] h-full gap-6">
+
+          <div className="flex items-center justify-center w-full h-full lg:w-[50%] lg:h-[90%] overflow-hidden p-3 border-2 border-activeTab bg-navbar">
             <img
               src={painting.image}
               alt={painting.title}
               className="w-full h-full object-cover cursor-pointer transition duration-150 ease-in-out hover:scale-105"
             />
           </div>
-          <div className="flex flex-col w-full h-full items-center justify-between">
-            <div className="text-[1rem] flex-wrap w-full h-full font-semibold font-inter tracking-wide flex items-center justify-center">
+
+          <div className="flex flex-col w-full lg:w-full h-auto gap-5 items-center justify-around">
+
+            <div className="text-[1rem] w-full h-auto px-5 overflow-hidden font-semibold font-inter tracking-wide flex items-center justify-center">
               {painting.description}
             </div>
-            <div className="flex items-center justify-between w-full h-full">
+
+            <div className="flex items-center justify-between w-screen px-4">
               <div className="flex gap-2 w-full items-center justify-start">
                 <div
                   onClick={decreaseQuantity}
@@ -148,16 +156,18 @@ function PaintingDetails() {
                   <PlusIcon className="h-5 w-5" />
                 </div>
               </div>
+
               <div className="w-full flex items-center justify-center font-semibold font-inter bg-activeTab text-white rounded-sm py-2">
                 Rs. {painting.price * quantity}
               </div>
             </div>
           </div>
         </div>
+
         <button
           type="button"
           onClick={toggleAddressVisibility}
-          className="w-full py-1 flex items-center justify-center bg-hoverTabs text-black font-inter font-semibold rounded-sm transition duration-150 ease-in-out hover:bg-activeTab hover:text-white"
+          className="w-[90vw] lg:w-full py-1 flex items-center justify-center bg-hoverTabs text-black font-inter font-semibold rounded-sm transition duration-150 ease-in-out hover:bg-activeTab hover:text-white"
         >
           BUY NOW
         </button>

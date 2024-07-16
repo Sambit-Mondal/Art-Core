@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback, useContext } from 'react';
 import google from '../assets/Google.png';
-import facebook from '../assets/Facebook.png';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { auth, signupWithGoogle, googleProvider, db } from '../firebase/Firebase';
 import { toast } from 'react-toastify';
@@ -85,8 +84,9 @@ function LoginPopup({ loginVisibility }) {
         }
     }
 
+    
     return (
-        <div ref={ref} className='flex justify-center bg-navbar w-auto flex-col p-5 pt-3 pb-3 px-7 rounded-sm z-50 absolute'>
+        <div ref={ref} className='flex justify-center bg-navbar w-auto flex-col pt-3 pb-3 px-7 rounded-sm z-50 absolute'>
             <div className='w-full flex items-center justify-end mb-2'>
                 <XMarkIcon className='w-6 h-6 cursor-pointer' onClick={onClose} />
             </div>
@@ -108,15 +108,9 @@ function LoginPopup({ loginVisibility }) {
                 <span className="mx-4 text-gray-500">OR</span>
                 <div className="flex-grow border-t border-gray-400"></div>
             </div>
-            <div className='flex items-center justify-center w-full gap-2 mb-3'>
-                <div className='flex items-center justify-center gap-5 font-semibold p-2 px-10 rounded-sm w-auto bg-white cursor-pointer transition duration-150' onClick={handleGoogleLogin}>
-                    <img src={google} alt="Google" className='w-6 h-6' />
-                    <p>Google</p>
-                </div>
-                <div className='flex items-center justify-center gap-5 font-semibold p-2 px-10 rounded-sm w-auto bg-white cursor-pointer'>
-                    <img src={facebook} alt="Google" className='w-6 h-6' />
-                    <p>Facebook</p>
-                </div>
+            <div className='flex items-center justify-center gap-5 mb-3 font-semibold p-3 px-10 lg:px-24 rounded-sm w-auto bg-white cursor-pointer transition duration-150' onClick={handleGoogleLogin}>
+                <img src={google} alt="Google" className='w-6 h-6' />
+                <p>Continue With Google</p>
             </div>
         </div>
     );

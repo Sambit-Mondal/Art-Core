@@ -21,22 +21,22 @@ function Username({ loginVisibility }) {
         <>
             <div>
                 {user ? (
-                    <div className='flex z-30 items-center justify-center w-auto fixed right-6 top-6 gap-4'>
-                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm font-semibold gap-2 bg-navbar px-3 py-2 drop-shadow-login-btn shadow-login-btn'>
-                            <UserCircleIcon className='size-5' />
+                    <div className='flex flex-row lg:flex-row z-30 items-end justify-center w-auto fixed right-5 top-5 lg:right-6 lg:top-6 gap-2 lg:gap-4'>
+                        <div className='flex items-center justify-center w-auto h-auto text-black rounded-sm border-[1px] border-activeTab lg:border-none font-semibold gap-2 bg-navbar text-sm lg:text-[1rem] px-3 py-2 lg:drop-shadow-login-btn lg:shadow-login-btn'>
+                            <UserCircleIcon className='size-4 lg:size-5' />
                             { user.displayName }
                         </div>
                         <div className="flex items-center justify-center w-auto h-auto gap-5 font-semibold">
-                            <button className='flex items-center justify-center w-auto h-auto bg-navbar p-2 px-3 rounded-sm cursor-pointer transition duration-150 ease-in-out hover:bg-activeTab hover:text-white drop-shadow-login-btn shadow-login-btn' onClick={handleLogout}>
+                            <button className='flex items-center justify-center w-auto h-auto border-[1px] border-activeTab lg:border-none bg-navbar p-2 px-3 rounded-sm cursor-pointer text-sm lg:text-[1rem] transition duration-150 ease-in-out hover:bg-activeTab hover:text-white lg:drop-shadow-login-btn lg:shadow-login-btn' onClick={handleLogout}>
                                 Logout
                             </button>
                         </div>
                     </div>
                 ) : (
                     <>
-                        <div className="flex z-30 items-center justify-center w-auto h-auto gap-5 fixed right-6 top-6 font-semibold">
-                            <button className='flex items-center justify-center w-auto h-auto gap-2 bg-navbar p-2 px-3 rounded-sm cursor-pointer transition duration-150 ease-in-out hover:bg-activeTab hover:text-white drop-shadow-login-btn shadow-login-btn' onClick={loginVisibility}>
-                                <UserCircleIcon className='size-5' />
+                        <div className="flex z-30 items-center justify-center w-auto h-auto gap-5 fixed right-5 top-5 lg:right-6 lg:top-6 font-semibold">
+                            <button className='flex items-center justify-center w-auto h-auto gap-2 border-[1px] border-activeTab lg:border-none text-sm lg:text-[1rem] bg-navbar p-2 px-3 rounded-sm cursor-pointer transition duration-150 ease-in-out hover:bg-activeTab hover:text-white lg:drop-shadow-login-btn lg:shadow-login-btn' onClick={loginVisibility}>
+                                <UserCircleIcon className='size-4 lg:size-5' />
                                 Login / Signup
                             </button>
                         </div>

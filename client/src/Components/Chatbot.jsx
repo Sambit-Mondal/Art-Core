@@ -21,13 +21,13 @@ function Chatbot() {
   return (
     <div>
       <div 
-        className='select-none fixed flex items-center justify-center bottom-6 right-6 overflow-hidden w-16 h-16 cursor-pointer rounded-full z-50'
+        className='select-none fixed flex items-center justify-center bottom-4 right-4 lg:bottom-6 lg:right-6 overflow-hidden w-12 h-12 lg:w-16 lg:h-16 cursor-pointer rounded-full z-50'
         onClick={toggleChatbot}
       >
         <img src={chatbot} alt="Chatbot" className='z-40' />
       </div>
       {isOpen && (
-        <div className='fixed bottom-5 right-8 w-[330px] h-[525px] z-40'>
+        <div className='fixed bottom-5 -right-1 lg:right-8 w-[330px] h-[525px] z-40'>
           <ChatbotComponent
             config={config}
             messageParser={MessageParser}

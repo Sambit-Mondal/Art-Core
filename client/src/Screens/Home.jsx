@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <>
-      <div className='select-none bg-background flex flex-col justify-center items-center z-40 w-screen h-screen'>
+      <div className='select-none bg-background flex flex-col justify-center items-center z-40 w-full h-screen'>
         <Username loginVisibility={loginVisibility} />
         {isLoginVisible && (
           <>
@@ -23,11 +23,11 @@ function Home() {
           </>
         )}
         <div className='flex flex-col items-center justify-center w-full '>
-          <p className='font-inter text-2xl font-semibold'>WELCOME TO</p>
-          <p className='font-carter text-4xl font-bold tracking-wide drop-shadow-text'>ART CORE</p>
-          <p className='font-jim text-[3.5rem] font-medium'>"Curating Beauty, one Brushstroke at a Time"</p>
+          <p className='font-inter text-md lg:text-xl font-semibold'>WELCOME TO</p>
+          <p className='font-carter text-[3.7rem] lg:text-4xl font-bold tracking-wide drop-shadow-text'>ART CORE</p>
+          <p className='font-jim text-[1.2rem] lg:text-2xl font-medium text-center'>"Curating Beauty, one Brushstroke at a Time"</p>
           <NavLink to='/about'>
-            <button className='flex items-center justify-center p-3 bg-navbar rounded-full drop-shadow-btn shadow-btn font-bold px-5 mt-8 transition duration-150 ease-in-out hover:bg-activeTab hover:text-white'>
+            <button className='flex items-center justify-center p-3 bg-navbar text-[0.75rem] lg:text-[1.2rem] rounded-full drop-shadow-btn shadow-btn font-bold px-5 lg:px-7 lg:py-4 mt-8 transition duration-150 ease-in-out hover:bg-activeTab hover:text-white'>
               EXPLORE MORE
             </button>
           </NavLink>
