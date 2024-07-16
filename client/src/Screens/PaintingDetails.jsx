@@ -118,13 +118,13 @@ function PaintingDetails() {
       )}
 
 
-      <div className='flex flex-col items-center justify-center h-full w-full p-10 py-16 px-48 gap-5'>
+      <div className='flex flex-col items-center justify-center lg:justify-center h-full w-full p-10 py-16 px-48 gap-5'>
 
         <div className="flex flex-col border-b-2 lg:w-2/4 border-solid items-center justify-center font-bold font-inter text-md tracking-wider">
           {painting.title}
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-between w-[90vw] h-full gap-6">
+        <div className="flex flex-col lg:flex-row items-center justify-between w-[90vw] lg:w-full h-full gap-6">
 
           <div className="flex items-center justify-center w-full h-full lg:w-[50%] lg:h-[90%] overflow-hidden p-3 border-2 border-activeTab bg-navbar">
             <img
@@ -134,13 +134,13 @@ function PaintingDetails() {
             />
           </div>
 
-          <div className="flex flex-col w-full lg:w-full h-auto gap-5 items-center justify-around">
+          <div className="flex flex-col w-full lg:w-full h-auto lg:h-[70%] gap-5 items-center justify-around lg:justify-between">
 
             <div className="text-[1rem] w-full h-auto px-5 overflow-hidden font-semibold font-inter tracking-wide flex items-center justify-center">
               {painting.description}
             </div>
 
-            <div className="flex items-center justify-between w-screen px-4">
+            <div className="flex items-center justify-between w-screen lg:w-full px-4">
               <div className="flex gap-2 w-full items-center justify-start">
                 <div
                   onClick={decreaseQuantity}
@@ -167,7 +167,7 @@ function PaintingDetails() {
         <button
           type="button"
           onClick={toggleAddressVisibility}
-          className="w-[90vw] lg:w-full py-1 flex items-center justify-center bg-hoverTabs text-black font-inter font-semibold rounded-sm transition duration-150 ease-in-out hover:bg-activeTab hover:text-white"
+          className="w-[90vw] lg:w-full py-2 flex items-center justify-center bg-hoverTabs text-black font-inter font-semibold rounded-sm transition duration-150 ease-in-out hover:bg-activeTab hover:text-white"
         >
           BUY NOW
         </button>
