@@ -13,7 +13,6 @@ function Username({ loginVisibility }) {
     const handleLogout = async () => {
         await signOut(auth);
         setUser(null);
-        window.location.reload();
         navigate('/');
     };
 
