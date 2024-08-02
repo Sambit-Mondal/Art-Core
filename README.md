@@ -136,5 +136,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any inquiries or feedback, feel free to contact:
-- https://skillicons.dev/icons?i=github&theme=dark: [Sambit-Mondal](https://github.com/Sambit-Mondal)
+For any inquiries or feedback, feel free to contact `Sambit Mondal`:
+
+<a href="https://github.com/Sambit-Mondal">
+   <img src="https://skillicons.dev/icons?i=github&theme=dark" style="margin-right: 100px;" />
+</a>
+<a href="https://linkedin.com/in/sambitm02">
+   <img src="https://skillicons.dev/icons?i=linkedin" />
+</a>
+<a href="mailto:sambitmondal2005@gmail.com">
+   <img src="https://skillicons.dev/icons?i=gmail" />
+</a>
