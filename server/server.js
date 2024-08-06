@@ -259,13 +259,15 @@ app.post('/api/create-order', async (req, res) => {
 
 // Route to handle payment success
 app.post('/api/payment-success', async (req, res) => {
-    const { razorpayPaymentId, razorpayOrderId, razorpaySignature, address, title, quantity } = req.body;
+    const { razorpayPaymentId, razorpayOrderId, razorpaySignature, name, phoneNumber, address, title, quantity } = req.body;
     try {
         // Store payment details in the database
         await Payment.create({
             razorpayPaymentId,
             razorpayOrderId,
             razorpaySignature,
+            name,
+            phoneNumber,
             address,
             title,
             quantity,
@@ -276,6 +278,8 @@ app.post('/api/payment-success', async (req, res) => {
         await emailService.sendPaymentSuccessEmail({
             paymentId: razorpayPaymentId,
             orderId: razorpayOrderId,
+            name,
+            phoneNumber,
             address,
             title,
             quantity,
