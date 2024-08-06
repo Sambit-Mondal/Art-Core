@@ -123,7 +123,7 @@ function AddArtworks() {
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'WALL HANGING' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('WALL HANGING')}>WALL HANGING</p>
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'CANVAS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('CANVAS')}>CANVAS</p>
                                 <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'BOOKMARKS' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>BOOKMARKS</p>
-                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'DIGITAL' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('BOOKMARKS')}>DIGITAL</p>
+                                <p className={`p-1 px-2 flex items-center justify-center font-semibold transition duration-150 cursor-pointer rounded-sm text-[0.9rem] ${type === 'DIGITAL' ? 'bg-activeTab text-white' : 'bg-background hover:bg-activeTab hover:text-white'}`} onClick={() => setType('DIGITAL')}>DIGITAL</p>
                             </div>
                         </div>
                     </div>
