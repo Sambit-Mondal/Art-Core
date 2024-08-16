@@ -26,12 +26,12 @@ root.render(
             <Routes>
               <Route path="/" element={<><Navbar /><Home /></>} />
               <Route path="/about" element={<><Navbar /><About /></>} />
-              <Route path="/artworks" element={<PrivateRoute element={<><Navbar /><Artworks /></>} />} />
+              <Route path="/artworks" element={<><Navbar /><Artworks /></>} />
               <Route path="/contact" element={<PrivateRoute element={<><Navbar /><ContactMe /></>} />} />
               <Route path="/login" element={<><Navbar /><LoginPopup loginVisibility={() => { }} /></>} />
               <Route path="/signup" element={<><Navbar /><LoginPopup loginVisibility={() => { }} /></>} />
               <Route path='/add-artworks' element={<PrivateRoute element={<><Navbar /><AddArtworks /></>} />} />
-              <Route path="/painting-details/:id" element={<><Navbar /><PaintingDetails /></>} />
+              <Route path="/painting-details/:id" element={<PrivateRoute element={<><Navbar /><PaintingDetails /></>} />} />
               <Route path='/user-address' element={<><Navbar /><UserAddress /></>} />
             </Routes>
           </div>
