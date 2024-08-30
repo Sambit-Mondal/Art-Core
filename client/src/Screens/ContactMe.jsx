@@ -42,7 +42,7 @@ function ContactMe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://art-core-backend.vercel.app/api/send-email', formData);
+      await axios.post('https://art-core-backend.onrender.com/api/send-email', formData);
       toast.success('Email sent successfully!', { position: 'top-center' });
       setFormData({ name: '', email: user.email, subject: '', message: '' });
     } catch (error) {
