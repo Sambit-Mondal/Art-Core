@@ -16,7 +16,7 @@ function Artworks() {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const response = await axios.get('https://art-core-backend.onrender.com/api/artworks' );
+        const response = await axios.get('https://art-core-backend.vercel.app/api/artworks' );
         setArtworks(response.data);
         setFilteredArtworks(response.data);
       } catch (error) {

@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginUserWithEmailAndPassword = async (email, password) => {
         try {
-            const response = await fetch('https://art-core-backend.onrender.com/login', {
+            const response = await fetch('https://art-core-backend.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
